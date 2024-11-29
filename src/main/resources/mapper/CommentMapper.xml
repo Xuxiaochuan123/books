@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ltd.newbee.mall.dao.CommentDao">
+
+    <sql id="selectComment">
+        select t.id, t.user_id, t.content, t.create_time, t.good_id,
+               t.order_id
+        from comment t
+    </sql>
+
+    <select id="selectListPage" parameterType="ltd.newbee.mall.entity.Comment">
+        <include refid="selectComment"></include>
+
+    </select>
+
+</mapper>

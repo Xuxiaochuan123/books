@@ -1,0 +1,76 @@
+server:
+  compression:
+    enabled: true
+    min-response-size: 1KB
+  port: 84
+  servlet:
+    context-path: /shop
+  tomcat:
+    # tomcat的URI编码
+    uri-encoding: UTF-8
+    # tomcat最大线程数，默认为200
+    # Tomcat启动初始化的线程数，默认值25
+    threads:
+      max: 300
+      min-spare: 30
+
+# spring
+spring:
+  session:
+    timeout: 3600S
+    redis:
+      namespace: shop
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    cache: false
+    encoding: UTF-8
+  # 服务模块
+  devtools:
+    restart:
+      # 热部署开关
+      enabled: false
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8 # 中国时区
+    default-property-inclusion: non_null
+  profiles:
+    active: dev
+  task:
+    execution:
+      pool:
+        core-size: 10
+        max-size: 20
+        queue-capacity: 5
+      thread-name-prefix: newbee-task
+  servlet:
+    multipart:
+      max-file-size: 100MB
+
+# mybatis plus
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      logic-delete-field: isDeleted  #全局逻辑删除字段值 3.3.0开始支持，详情看下面。
+      logic-delete-value: 1 # 逻辑已删除值(默认为 1)
+      logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
+  type-aliases-package: com.wayn.**.entity
+
+# wayn配置
+mall:
+  serverUrl: ${WAYN_SERVER_URL:localhost}
+  viewModel: ${WAYN_VIEW_MODEL:false} # 演示模式true只能查看，不能修改
+  viewModelTip: ${WAYN_VIEW_MODEL_TIP:} # 演示模式true只能查看，不能修改
+  uploadDir: ${WAYN_UPLOAD_DIR:D:/upload} # 如果没有D盘，在这修改图片的存储位置
+
+
+
+
+
+# xml热加载配置
+mybatis-xml-reload:
+  enabled: ${XML_RELOAD:true}
+  mapper-locations: classpath*:mapper/*.xml
